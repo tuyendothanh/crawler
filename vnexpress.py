@@ -17,8 +17,12 @@ import xml.etree.ElementTree as ET
 with open('data/vnexpress.xml', 'w', encoding='utf-8') as f:
     print(ET.tostring(a.clean_top_node), file=f)
 
+import ntpath
+head, tail = ntpath.split(url)
+file_name=tail or ntpath.basename(head)
+
 from xml.dom import minidom as MD
-with open('wp_data/vnexpress_thoi_su.html', 'w', encoding='utf-8') as f:
+with open('wp_data/' + file_name, 'w', encoding='utf-8') as f:
     rough_string = ET.tostring(a.clean_top_node, 'utf-8')
     reparsed = MD.parseString(rough_string)
     lines = reparsed.toprettyxml(indent="\t").split('\n')
